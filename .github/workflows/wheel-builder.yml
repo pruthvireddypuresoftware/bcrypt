@@ -24,7 +24,7 @@ jobs:
           python-version: ${{ matrix.PYTHON.VERSION }}
           architecture: ${{ matrix.WINDOWS.ARCH }}
       - run: pip install wheel cffi six
-      - run: pip wheel bcrypt --wheel-dir=wheelhouse --no-binary bcrypt
+      - run: pip wheel bcrypt --wheel-dir=wheelhouse --no-binary bcrypt --build-option --py-limited-api=cp35
       - run: pip install -f wheelhouse --no-index bcrypt
       - run: |
           python -c "import bcrypt; password = b'super secret password';hashed = bcrypt.hashpw(password, bcrypt.gensalt());bcrypt.checkpw(password, hashed)"
