@@ -116,3 +116,24 @@ jobs:
         with:
           name: "bcrypt-${{ github.event.client_payload.BUILD_VERSION }}-${{ matrix.WINDOWS.WINDOWS }}-${{ matrix.PYTHON.VERSION }}"
           path: bcrypt-wheelhouse\
+
+  manylinux-arm64:
+     name: "Python ${{ matrix.PYTHON }} for manylinux2014-aarch64"
+     runs-on: ubuntu-latest
+     strategy:
+       matrix:
+         PYTHON: ["cp36-cp36m"]
+       fail-fast: false
+     steps:
+     - uses: actions/checkout@v2
+     - run: |
+         docker run --rm --privileged hypriot/qemu-register
+     - uses: docker://quay.io/pypa/manylinux2014_aarch64
+       with:
+        args: 'bash .github/scripts/arm64_create_wheels.sh ${{ matrix.PYTHON }}'
+     - run: mkdir bcrypt-wheelhouse
+     - run: sudo mv wheelhouse/bcrypt*.whl bcrypt-wheelhouse/
+     - uses: actions/upload-artifact@v1
+       with:
+          name: "bcrypt-${{ github.event.client_payload.BUILD_VERSION }}-manylinux2014-aarch64-${{ matrix.PYTHON }}"
+          path: bcrypt-wheelhouse/
