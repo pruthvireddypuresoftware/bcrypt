@@ -58,7 +58,7 @@ jobs:
               if [[ ${{ matrix.PYTHON }} =~ $REGEX ]]; then 
                    PY_LIMITED_API="--py-limited-api=cp3${BASH_REMATCH[1]}"; 
               fi;
-              echo $PY_LIMITED_API;"
+              echo $PY_LIMITED_API;'
      - run: mkdir bcrypt-wheelhouse
      - run: sudo mv wheelhouse/bcrypt*.whl bcrypt-wheelhouse/
      - uses: actions/upload-artifact@v1
