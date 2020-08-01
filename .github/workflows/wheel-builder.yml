@@ -55,7 +55,7 @@ jobs:
        with:
         args: |
               bash -c "REGEX='cp3([0-9])*';
-              if [[ '${{ matrix.PYTHON }}' =~ $REGEX ]]; then 
+              if [[ ${{ matrix.PYTHON }} =~ $REGEX ]]; then 
                    PY_LIMITED_API='--py-limited-api=cp3${BASH_REMATCH[1]}'; 
               fi;
               echo $PY_LIMITED_API;"
