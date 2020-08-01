@@ -64,7 +64,7 @@ jobs:
               .venv/bin/python setup.py bdist_wheel $PY_LIMITED_API -d tmpwheelhouse;
               auditwheel repair tmpwheelhouse/bcrypt*.whl -w wheelhouse/;
               .venv/bin/pip install bcrypt --no-index -f wheelhouse/;
-              .venv/bin/python -c 'import bcrypt; password = b"super secret password";hashed = bcrypt.hashpw(password, bcrypt.gensalt());bcrypt.checkpw(password, hashed)'"
+              .venv/bin/python -c \"import bcrypt; password = b'super secret password';hashed = bcrypt.hashpw(password, bcrypt.gensalt());bcrypt.checkpw(password, hashed)\";"
      - run: mkdir bcrypt-wheelhouse
      - run: sudo mv wheelhouse/bcrypt*.whl bcrypt-wheelhouse/
      - uses: actions/upload-artifact@v1
